@@ -71,7 +71,6 @@ Only describe what can reasonably be observed from the image.
 
           )
 
-    st.write("DEBUG:", response)
 
     return response.choices[0].message.content
 
