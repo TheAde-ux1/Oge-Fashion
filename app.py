@@ -72,7 +72,9 @@ Only describe what can reasonably be observed from the image.
           )
 
 
-    return response.choices[0].message.content or ""
+   st.write("STYLING DEBUG:", response)
+
+return response.choices[0].message.content
 
 
 # ---------------------------------------------------------
