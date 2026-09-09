@@ -1,5 +1,6 @@
 import streamlit as st
-
+import os
+HF_TOKEN = os.environ.get("HF_TOKEN")
 st.title("Ògè")
 st.subheader("Your AI Fashion Assistant")
 
