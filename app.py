@@ -67,119 +67,28 @@ Only describe what can reasonably be observed from the image.
                 ]
             }
         ],
-        max_tokens=300
+        max_tokens=500
+    )
 
-          )
+    return response.choices[0].message.content
 
-
-
-return response.choices[0].message.content
-
-
-# ---------------------------------------------------------
-# OGE APP
-# ---------------------------------------------------------
-# AI OUTFIT STYLING
-# ---------------------------------------------------------
 
 # ---------------------------------------------------------
 # AI OUTFIT STYLING
 # ---------------------------------------------------------
 
-def generate_outfits(clothing_description, occasion, style_preference, body_preference, fit_preference):
+def generate_outfits(
+    clothing_description,
+    occasion,
+    style_preference,
+    body_preference,
+    fit_preference
+):
 
     prompt = f"""
 You are Oge, an AI fashion stylist.
 
 The clothing item identified from the user's photo is:
-
-{clothing_description}
-
-Occasion:
-{occasion}
-
-Preferred style:
-{style_preference}
-
-Fit/body preference:
-{body_preference}
-
-Preferred clothing fit:
-{fit_preference}
-
-Create exactly 3 specific and complete outfits using the uploaded clothing item.
-
-For each look, provide:
-1. Look name
-2. Exact clothing pieces and colours
-3. Shoes
-4. Bag
-5. Accessories
-6. A short explanation of why the outfit works
-
-Make the three looks clearly different.
-
-Use the actual clothing description above.
-Do not say "add a complementary top" or give generic advice.
-Name the actual items and colours.
-
-Keep the recommendations practical, stylish and appropriate for the occasion.
-
-Do not make negative comments about the user's body.
-Do not assume measurements.
-
-Format your answer as:
-
-LOOK 1 — [NAME]
-
-OUTFIT:
-- ...
-- ...
-- ...
-- ...
-
-WHY IT WORKS:
-...
-
-LOOK 2 — [NAME]
-
-OUTFIT:
-- ...
-- ...
-- ...
-- ...
-
-WHY IT WORKS:
-...
-
-LOOK 3 — [NAME]
-
-OUTFIT:
-- ...
-- ...
-- ...
-- ...
-
-WHY IT WORKS:
-...
-"""
-
-    response = client.chat.completions.create(
-        model="Qwen/Qwen3.8-27B",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        max_tokens=700
-    )
-
-    return response.choices[0].message.content
-    prompt = f"""
-You are Oge, an AI fashion stylist.
-
-The user uploaded this clothing item:
 
 {clothing_description}
 
@@ -195,23 +104,50 @@ Fit/body preference:
 Preferred clothing fit:
 {fit_preference}
 
-Create exactly 3 complete outfit recommendations using the uploaded clothing item as the main piece.
+Create exactly 3 specific and complete outfit recommendations
+using the uploaded clothing item as the main piece.
 
-Each outfit must include specific clothing items, shoes, a bag and accessories.
+Each outfit must include:
 
-Make each look clearly different.
+- The uploaded item
+- Other clothing pieces
+- Specific colours
+- Shoes
+- Bag
+- Accessories
 
-Consider colour coordination, proportion, silhouette, garment length, occasion, fit preference and practicality.
+Make the three looks clearly different.
+
+Consider:
+
+- colour coordination
+- proportion
+- silhouette
+- garment length
+- occasion
+- fit preference
+- practicality
+- overall styling
 
 Do not give generic advice.
-Actually name the clothing items and colours.
+
+Do not say things such as:
+"add a complementary top"
+or
+"choose suitable shoes."
+
+Instead, name the actual clothing items and colours.
 
 For each look provide:
 
 LOOK 1 — [short name]
 
 OUTFIT:
-[List the exact pieces]
+- [specific clothing item and colour]
+- [specific clothing item and colour]
+- [shoes]
+- [bag]
+- [accessories]
 
 WHY IT WORKS:
 [Brief explanation]
@@ -219,7 +155,11 @@ WHY IT WORKS:
 LOOK 2 — [short name]
 
 OUTFIT:
-[List the exact pieces]
+- [specific clothing item and colour]
+- [specific clothing item and colour]
+- [shoes]
+- [bag]
+- [accessories]
 
 WHY IT WORKS:
 [Brief explanation]
@@ -227,13 +167,18 @@ WHY IT WORKS:
 LOOK 3 — [short name]
 
 OUTFIT:
-[List the exact pieces]
+- [specific clothing item and colour]
+- [specific clothing item and colour]
+- [shoes]
+- [bag]
+- [accessories]
 
 WHY IT WORKS:
 [Brief explanation]
 
 Do not discuss the user's body negatively.
 Do not make assumptions about measurements.
+Keep the recommendations practical and stylish.
 """
 
     response = client.chat.completions.create(
@@ -248,6 +193,10 @@ Do not make assumptions about measurements.
     )
 
     return response.choices[0].message.content
+
+
+# ---------------------------------------------------------
+# OGE APP
 # ---------------------------------------------------------
 
 st.title("Oge")
@@ -445,20 +394,12 @@ if uploaded_file:
 
 
         # ---------------------------------------------
-        # INTRODUCTION
+        # GENERATE OUTFITS
         # ---------------------------------------------
 
-        st.success(
-            f"Here are 3 {style_preference.lower()} looks "
-            f"for your {custom_occasion.lower()}."
-        )
-
-
-                # ---------------------------------------------
-        # AI-GENERATED OUTFITS
-        # ---------------------------------------------
-
-        with st.spinner("Oge is creating your outfits..."):
+        with st.spinner(
+            "Oge is creating your outfits..."
+        ):
 
             outfit_recommendations = generate_outfits(
                 clothing_description,
@@ -468,17 +409,30 @@ if uploaded_file:
                 fit_preference
             )
 
-        st.write("## 👗 Oge's outfit recommendations")
 
-        st.markdown(outfit_recommendations)
+        st.success(
+            f"Here are 3 {style_preference.lower()} looks "
+            f"for your {custom_occasion.lower()}."
+        )
+
+
+        st.write(
+            "## 👗 Oge's outfit recommendations"
+        )
+
+        st.markdown(
+            outfit_recommendations
+        )
+
+
+        # ---------------------------------------------
         # CURRENT DEVELOPMENT STATUS
         # ---------------------------------------------
 
         st.divider()
 
         st.info(
-            "✨ Oge has analysed your clothing photo. "
-            "The next stage is to use the identified garment, "
-            "occasion and fit preferences to generate genuinely "
-            "personalised outfit combinations."
+            "✨ Oge has analysed your clothing photo and "
+            "created personalised outfit recommendations. "
+            "The next stage is visual outfit generation."
         )
