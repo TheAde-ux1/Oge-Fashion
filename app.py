@@ -67,7 +67,7 @@ Only describe what can reasonably be observed from the image.
                 ]
             }
         ],
-        max_tokens=500
+       max_tokens=300
     )
 
     return response.choices[0].message.content
