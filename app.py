@@ -2,7 +2,7 @@ import streamlit as st
 import os
 from huggingface_hub import InferenceClient
 
-HF_TOKEN = os.environ.get("HF_TOKEN")
+HF_TOKEN = st.secrets["HF_TOKEN"]
 client = InferenceClient(
     provider="auto",
     api_key=HF_TOKEN
