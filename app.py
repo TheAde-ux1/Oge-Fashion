@@ -83,8 +83,100 @@ return response.choices[0].message.content
 # AI OUTFIT STYLING
 # ---------------------------------------------------------
 
+# ---------------------------------------------------------
+# AI OUTFIT STYLING
+# ---------------------------------------------------------
+
 def generate_outfits(clothing_description, occasion, style_preference, body_preference, fit_preference):
 
+    prompt = f"""
+You are Oge, an AI fashion stylist.
+
+The clothing item identified from the user's photo is:
+
+{clothing_description}
+
+Occasion:
+{occasion}
+
+Preferred style:
+{style_preference}
+
+Fit/body preference:
+{body_preference}
+
+Preferred clothing fit:
+{fit_preference}
+
+Create exactly 3 specific and complete outfits using the uploaded clothing item.
+
+For each look, provide:
+1. Look name
+2. Exact clothing pieces and colours
+3. Shoes
+4. Bag
+5. Accessories
+6. A short explanation of why the outfit works
+
+Make the three looks clearly different.
+
+Use the actual clothing description above.
+Do not say "add a complementary top" or give generic advice.
+Name the actual items and colours.
+
+Keep the recommendations practical, stylish and appropriate for the occasion.
+
+Do not make negative comments about the user's body.
+Do not assume measurements.
+
+Format your answer as:
+
+LOOK 1 — [NAME]
+
+OUTFIT:
+- ...
+- ...
+- ...
+- ...
+
+WHY IT WORKS:
+...
+
+LOOK 2 — [NAME]
+
+OUTFIT:
+- ...
+- ...
+- ...
+- ...
+
+WHY IT WORKS:
+...
+
+LOOK 3 — [NAME]
+
+OUTFIT:
+- ...
+- ...
+- ...
+- ...
+
+WHY IT WORKS:
+...
+"""
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen3.8-27B",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        max_tokens=700
+    )
+
+    return response.choices[0].message.content
     prompt = f"""
 You are Oge, an AI fashion stylist.
 
