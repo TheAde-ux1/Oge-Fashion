@@ -78,6 +78,84 @@ Only describe what can reasonably be observed from the image.
 # ---------------------------------------------------------
 # OGE APP
 # ---------------------------------------------------------
+# AI OUTFIT STYLING
+# ---------------------------------------------------------
+
+def generate_outfits(clothing_description, occasion, style_preference, body_preference, fit_preference):
+
+    prompt = f"""
+You are Oge, an AI fashion stylist.
+
+The user uploaded this clothing item:
+
+{clothing_description}
+
+The user is going to:
+{occasion}
+
+Preferred style:
+{style_preference}
+
+Fit/body preference:
+{body_preference}
+
+Preferred clothing fit:
+{fit_preference}
+
+Create exactly 3 complete outfit recommendations using the uploaded clothing item as the main piece.
+
+Each outfit must include specific clothing items, shoes, a bag and accessories.
+
+Make each look clearly different.
+
+Consider colour coordination, proportion, silhouette, garment length, occasion, fit preference and practicality.
+
+Do not give generic advice.
+Actually name the clothing items and colours.
+
+For each look provide:
+
+LOOK 1 — [short name]
+
+OUTFIT:
+[List the exact pieces]
+
+WHY IT WORKS:
+[Brief explanation]
+
+LOOK 2 — [short name]
+
+OUTFIT:
+[List the exact pieces]
+
+WHY IT WORKS:
+[Brief explanation]
+
+LOOK 3 — [short name]
+
+OUTFIT:
+[List the exact pieces]
+
+WHY IT WORKS:
+[Brief explanation]
+
+Do not discuss the user's body negatively.
+Do not make assumptions about measurements.
+"""
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen3.8-27B",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        max_tokens=700
+    )
+
+    return response.choices[0].message.content
+# ---------------------------------------------------------
 
 st.title("Oge")
 
