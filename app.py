@@ -3,6 +3,50 @@ import os
 from huggingface_hub import InferenceClient
 
 HF_TOKEN = os.environ.get("HF_TOKEN")
+client = InferenceClient(
+    provider="auto",
+    api_key=HF_TOKEN
+)
+
+def identify_clothing(image_file):
+
+    image_bytes = image_file.getvalue()
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen2.5-VL-7B-Instruct",
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{__import__('base64').b64encode(image_bytes).decode()}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "text": """Identify the clothing item in this image.
+
+Describe:
+- garment type
+- colour
+- pattern
+- silhouette
+- apparent length
+- fabric or material if reasonably visible
+- notable design details
+
+Keep the description concise and factual.
+Do not identify the person's body or make assumptions about their body."""
+                    }
+                ]
+            }
+        ],
+        max_tokens=300
+    )
+
+    return response.choices[0].message.content
 
 st.title("Oge")
 st.subheader("Your AI Fashion Assistant")
