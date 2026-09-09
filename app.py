@@ -70,7 +70,7 @@ Only describe what can reasonably be observed from the image.
         max_tokens=300
     )
 
-    return response.choices[0].message.content
+   return response.choices[0].message.content or response.choices[0].message.get("content")
 
 
 # ---------------------------------------------------------
