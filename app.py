@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 HF_TOKEN = os.environ.get("HF_TOKEN")
-st.title("Ògè")
+st.title("Oge")
 st.subheader("Your AI Fashion Assistant")
 
 st.write("Snap what you have. See how to style it.")
@@ -64,7 +64,7 @@ if uploaded_file:
 
     if occasion == "Other":
         custom_occasion = st.text_input(
-            "Tell Ògè where you're going"
+            "Tell Oge where you're going"
         )
     else:
         custom_occasion = occasion
@@ -125,6 +125,6 @@ if uploaded_file:
         )
 
         st.info(
-            "✨ Ògè will soon be able to identify your actual clothing "
+            "✨ Oge will soon be able to identify your actual clothing "
             "item and create personalised outfit images."
         )
