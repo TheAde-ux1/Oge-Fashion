@@ -361,75 +361,23 @@ if uploaded_file:
         )
 
 
-        # ---------------------------------------------
-        # LOOK 1
-        # ---------------------------------------------
-
-        st.write(
-            "## 👗 Look 1 — Polished"
-        )
-
-        st.write(
-            f"Build the outfit around the uploaded garment. "
-            f"Use complementary colours and a balanced silhouette. "
-            f"Choose a {fit_preference.lower()} fit and coordinate "
-            f"the footwear, bag and accessories for a polished "
-            f"{style_preference.lower()} look suitable for "
-            f"{custom_occasion.lower()}."
-        )
-
-        st.write(
-            "**Styling rule:** Balance proportion and avoid "
-            "letting multiple statement pieces compete."
-        )
-
-
-        # ---------------------------------------------
-        # LOOK 2
+                # ---------------------------------------------
+        # AI-GENERATED OUTFITS
         # ---------------------------------------------
 
-        st.write(
-            "## 👗 Look 2 — Elevated"
-        )
+        with st.spinner("Oge is creating your outfits..."):
 
-        st.write(
-            f"Create a more elevated combination using the uploaded "
-            f"garment as the foundation. Add a complementary top, "
-            f"refined footwear, a coordinated bag and carefully "
-            f"selected accessories. Maintain your preferred "
-            f"{fit_preference.lower()} fit while keeping the "
-            f"overall proportions balanced."
-        )
+            outfit_recommendations = generate_outfits(
+                clothing_description,
+                custom_occasion,
+                style_preference,
+                body_preference,
+                fit_preference
+            )
 
-        st.write(
-            "**Styling rule:** Use one main focal point and keep "
-            "the remaining pieces supportive."
-        )
+        st.write("## 👗 Oge's outfit recommendations")
 
-
-        # ---------------------------------------------
-        # LOOK 3
-        # ---------------------------------------------
-
-        st.write(
-            "## 👗 Look 3 — Effortless"
-        )
-
-        st.write(
-            f"Create an easier everyday combination around the "
-            f"uploaded garment. Use a simple complementary top, "
-            f"practical footwear and minimal accessories. Keep "
-            f"the proportions comfortable and appropriate for "
-            f"{custom_occasion.lower()}."
-        )
-
-        st.write(
-            "**Styling rule:** Comfort, proportion and colour "
-            "coordination should work together."
-        )
-
-
-        # ---------------------------------------------
+        st.markdown(outfit_recommendations)
         # CURRENT DEVELOPMENT STATUS
         # ---------------------------------------------
 
