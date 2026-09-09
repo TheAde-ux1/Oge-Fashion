@@ -26,7 +26,7 @@ def identify_clothing(image_file):
     image_base64 = base64.b64encode(image_bytes).decode()
 
     response = client.chat.completions.create(
-        model="Qwen/Qwen2.5-VL-7B-Instruct",
+        model="Qwen/Qwen2.5-VL-3B-Instruct",
         messages=[
             {
                 "role": "user",
