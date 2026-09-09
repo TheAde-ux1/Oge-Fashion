@@ -1,6 +1,8 @@
 import streamlit as st
 import os
+
 HF_TOKEN = os.environ.get("HF_TOKEN")
+
 st.title("Oge")
 st.subheader("Your AI Fashion Assistant")
 
@@ -38,6 +40,7 @@ if uploaded_file:
             "School Reunion",
             "Graduation / Convocation",
             "Award Ceremony",
+            "Alumni Event",
             "Concert",
             "Sip & Paint",
             "Game Night",
@@ -88,43 +91,102 @@ if uploaded_file:
         ]
     )
 
-    if st.button("✨ Style it with Ògè"):
+    st.write("### 👗 Tell Oge about your fit preference")
+
+    body_preference = st.selectbox(
+        "Choose an option",
+        [
+            "Petite",
+            "Average height",
+            "Tall",
+            "Curvy",
+            "Plus-size",
+            "Straight / Rectangular",
+            "Pear",
+            "Apple",
+            "Hourglass",
+            "Inverted Triangle",
+            "Prefer not to specify"
+        ]
+    )
+
+    fit_preference = st.selectbox(
+        "How do you prefer your clothes to fit?",
+        [
+            "Fitted",
+            "Relaxed",
+            "Oversized",
+            "Structured",
+            "Flowy",
+            "Balanced mix"
+        ]
+    )
+
+    st.write("### 📐 Oge's styling rules")
+
+    st.caption(
+        "Oge considers proportion, silhouette, colour balance, "
+        "garment length, comfort and occasion when creating suggestions."
+    )
+
+    if st.button("✨ Style it with Oge"):
 
         st.divider()
 
         st.success(
-            f"Here are 3 {style_preference.lower()} "
-            f"looks for your {custom_occasion.lower()}."
+            f"Here are 3 {style_preference.lower()} looks "
+            f"for your {custom_occasion.lower()}."
         )
 
         st.write("## 👗 Look 1 — Polished")
 
         st.write(
-            f"Style your uploaded piece with a clean, well-fitted "
-            f"top in a neutral colour. Add simple jewellery, "
-            f"a structured handbag and polished shoes. "
-            f"This works especially well for {custom_occasion.lower()}."
+            f"Build the outfit around your uploaded piece using "
+            f"a balanced silhouette and colours that complement it. "
+            f"Choose a {fit_preference.lower()} fit and keep the "
+            f"accessories coordinated for a polished "
+            f"{style_preference.lower()} look suitable for "
+            f"{custom_occasion.lower()}."
+        )
+
+        st.write(
+            "**Styling rule:** Balance proportion and avoid "
+            "letting multiple statement pieces compete."
         )
 
         st.write("## 👗 Look 2 — Elevated")
 
         st.write(
-            f"Create a more elevated outfit by pairing your piece "
-            f"with a contrasting top, refined accessories and "
-            f"a statement shoe. Keep the accessories coordinated "
-            f"for a balanced {style_preference.lower()} look."
+            f"Create a more elevated combination with a complementary "
+            f"top, refined footwear, a structured or coordinated bag "
+            f"and carefully selected accessories. The outfit should "
+            f"work with your preferred {fit_preference.lower()} fit "
+            f"while maintaining visual balance."
+        )
+
+        st.write(
+            "**Styling rule:** Use one main focal point and keep "
+            "the remaining pieces supportive."
         )
 
         st.write("## 👗 Look 3 — Effortless")
 
         st.write(
-            f"For a more relaxed option, combine your piece with "
-            f"a simple top, comfortable shoes and minimal accessories. "
-            f"This gives you an effortless outfit suitable for "
-            f"{custom_occasion.lower()}."
+            f"Create an easier combination using your uploaded piece "
+            f"with a simple complementary top, practical footwear "
+            f"and minimal accessories. Keep the proportions comfortable "
+            f"and appropriate for {custom_occasion.lower()}."
         )
 
+        st.write(
+            "**Styling rule:** Comfort, proportion and colour "
+            "coordination should work together."
+        )
+
+        st.divider()
+
         st.info(
-            "✨ Oge will soon be able to identify your actual clothing "
-            "item and create personalised outfit images."
+            "✨ Oge will soon be able to identify the actual clothing "
+            "item in your photo and use that information to personalise "
+            "each recommendation."
         )
