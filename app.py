@@ -185,7 +185,10 @@ if uploaded_file:
 
         st.divider()
 
-        st.success(
+        st.success(f"Here are 3 {style_preference.lower()} looks "
+        f"for your {custom_occasion.lower()}."
+    )
+
 
         st.write("## 👗 Look 1 — Polished")
 
