@@ -176,12 +176,16 @@ if uploaded_file:
 
     if st.button("✨ Style it with Oge"):
 
+        with st.spinner("Oge is looking at your clothing..."):
+            clothing_description = identify_clothing(uploaded_file)
+
+        st.write("### 🔍 Oge identified your item")
+
+        st.info(clothing_description)
+
         st.divider()
 
         st.success(
-            f"Here are 3 {style_preference.lower()} looks "
-            f"for your {custom_occasion.lower()}."
-        )
 
         st.write("## 👗 Look 1 — Polished")
 
